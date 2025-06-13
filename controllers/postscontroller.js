@@ -127,6 +127,13 @@ const update = (req, res) => {
 };
 
 const destroy = (req, res) => {
+  const { id } = req.params;
+
+  connection.query("DELETE FROM `posts` WHERE `id` = ?", [id], (err) => {
+    if (err) return res.status(500).json({ error: "Failed to delete post" });
+    res.sendStatus(204);
+  });
+
   // const postId = parseInt(req.params.id);
   // const post = posts.find((post) => post.id === postId);
   // if (!post) {
