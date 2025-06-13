@@ -35,6 +35,20 @@ const index = (req, res) => {
 };
 
 const show = (req, res) => {
+  const postId = req.params.id;
+
+  const sqlPost = `SELECT *
+FROM posts
+WHERE id = ?`;
+
+  connection.query(sqlPost, [postId], (err, results) => {
+    if (err)
+      return res.status(500).json({ error: "Error executing the query" });
+    if (results.length === 0)
+      return res.status(404).json({ error: "Post not found" });
+    res.json(results[0]);
+  });
+
   // const postId = parseInt(req.params.id);
   // const post = posts.find((post) => post.id === postId);
   // if (!post) {
