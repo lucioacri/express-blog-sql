@@ -1,6 +1,16 @@
 const connection = require("../data/db");
 
 const index = (req, res) => {
+  const sql = "SELECT * FROM `posts`";
+  connection.query(sql, (err, results) => {
+    if (err) throw err;
+    console.log(results);
+    res.json({
+      data: results,
+      status: 200,
+    });
+  });
+
   // let filteredPosts = [...posts];
   // if (req.query.tags) {
   //   filteredPosts = posts.filter((post) => post.tags.includes(req.query.tags));
